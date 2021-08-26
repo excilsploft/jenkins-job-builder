@@ -504,6 +504,14 @@ def git_extensions(xml_parent, data):
             )
         ext = XML.SubElement(xml_parent, impl_prefix + "BuildChooserSetting")
         XML.SubElement(ext, "buildChooser", {"class": choosing_strategy})
+    if "local-branch" in data:
+        ext_name = impl_prefix + "LocalBranch"
+        if trait:
+            trait_name = "LocalBranchTrait"
+            tr = XML.SubElement(xml_parent, trait_prefix + trait_name)
+            ext = XML.SubElement(tr, "extension", {"class": ext_name})
+            XML.SubElement(ext, "localBranch").text = "**"
+
     if "clean" in data:
         # Keep support for old format 'clean' configuration by checking
         # if 'clean' is boolean. Else we're using the new extensions style.
